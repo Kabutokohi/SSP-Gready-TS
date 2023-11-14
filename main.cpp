@@ -7,8 +7,8 @@
 
 // Librerias Kabuto
 #include "File_RW.h"
-#include "Gready.h"
-#include "Tabu_search.h"
+//#include "Gready.h"
+//#include "Tabu_search.h"
 
 using namespace std;
 

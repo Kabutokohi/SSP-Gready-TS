@@ -1,22 +1,17 @@
-# Variables para especificar los nombres de los archivos
-PROGRAMA = SSP
-ARCHIVO_CPP = test.cpp
-OBJETOS = $(ARCHIVO_CPP:.cpp=.o)
+CC = g++
+CFLAGS = -Wall -Wextra -g
 
-# Regla para compilar y ejecutar el programa
-all: $(PROGRAMA)
-	@./$(PROGRAMA)
+all: main
 
-$(PROGRAMA): $(OBJETOS)
-	@g++ -o $(PROGRAMA) $(OBJETOS)
+main: main.o File_RW.o
+	$(CC) $(CFLAGS) main.o File_RW.o -o main
 
-%.o: %.cpp
-	@g++ -c $< -o $@
+main.o: main.cpp
+	$(CC) $(CFLAGS) -c main.cpp -o main.o
 
-# Rutina make
-make: all
+File_RW.o: File_RW.cpp
+	$(CC) $(CFLAGS) -c File_RW.cpp -o File_RW.o
 
-# Rutina make clean
+
 clean:
-	@rm -f $(OBJETOS) $(PROGRAMA)
-
+	rm -f *.o main

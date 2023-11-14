@@ -21,7 +21,14 @@
  * ser asignado al mismo tiempo que el turno actual. Se utiliza para garantizar que ciertos turnos no
  * se superponen o entran en conflicto entre sí.
  */
-struct shift;
+//struct shift;
+struct shift
+{
+  std::string id; //ID del turno
+  int duracion; // Duracion del turno
+  std::vector<std::string> shifts; // Turnos que no pueden ser asigandos a la vez
+};
+
 
 /**
  * La estructura "empleado" representa un empleado con varios atributos como ID, máximo y mínimo.
@@ -41,8 +48,18 @@ struct shift;
  *debe tener entre dos turnos.
  * @property {int} maxWeekends: el número máximo de fines de semana que un empleado puede trabajar.
  */
-struct empleyee;
-
+//struct empleyee;
+struct empleyee
+{
+  string id; //Id del empleado
+  string cantidadTurnos; //cantidad maxima de turnos en el id (separado por |)
+  int maxMin; //cantidad maxima de tiempo que puede trabajar
+  int minMin; //cantidad minima que puede trabajar
+  int maxConsecutiveShifts;   // cantidad máxima de turnos consecutivos que puede realizar
+  int minConsecutiveShifts;   // cantidad mínima de turnos consecutivos que debe realizar
+  int minConsecutiveDaysOff;  // cantidad mínima de días libres que debe tener entre dos turnos
+  int maxWeekends;            // cantidad máxima de fines de semana que puede trabajar
+};
 /**
   * La estructura "daysOff" representa los días libres de un empleado, incluido su ID, la cantidad de días
   * descanso, y los días libres específicos.
@@ -53,7 +70,14 @@ struct empleyee;
   * apagado. Cada elemento del vector representa un día y el valor del elemento representa el día.
   * número. Por ejemplo, si un empleado tiene tiempo libre los días 1, 5 y 10
   */
-struct daysOff;
+//struct daysOff;
+
+struct daysOff
+{
+  string id;         // ID del empleado
+  int len;            // cant días libres
+  vector<int> days; // conjunto de días libres
+};
 
 /**
   * La estructura ShiftRequest representa una solicitud de un empleado para que se le asigne un turno específico en un
@@ -67,7 +91,15 @@ struct daysOff;
   * la solicitud de turno para un día en particular. Se puede utilizar para priorizar ciertas solicitudes de turno sobre
   * otros al tomar decisiones de programación.
   */
-struct ShiftRequest;
+
+struct ShiftRequest
+{
+    string id;    // ID del empleado
+    int day;           // día que quiere ser asignado
+    string shift; // turno que quiere ser asignado en el día day
+    int weight;        // peso para la no asignación del día day
+};
+
 
 /**
   * La estructura ShiftOffRequest representa una solicitud de un empleado para que no se le asigne un turno específico
@@ -81,7 +113,13 @@ struct ShiftRequest;
   * día y turno del empleado. Se puede utilizar para determinar el orden en el que se envían las solicitudes.
   * procesado o para calcular la puntuación general o el costo de la tarea.
   */
-struct ShiftOffRequest;
+struct ShiftOffRequest
+{
+    string id;    // ID del empleado
+    int day;           // día que quiere no ser asignado
+    string shift; // turno que quiere no ser asignado en el día day
+    int weight;        // peso para asignación del día day en el turno shift
+};
 
 /**
   * La estructura SecciónCubierta representa los requisitos de cobertura de una sección para un día y turno específicos.
@@ -99,7 +137,14 @@ struct ShiftOffRequest;
   * sobrecumplimiento del requisito de cobertura. Se utiliza para calcular el peso total de un
   * Cobertura de la sección en función del número de empleados presentes.
   */
-struct SectionCover;
+struct SectionCover
+{
+    int day;        // día del ciclo
+    string shift;  // turno del día
+    int requiredEmployees; // cantidad de empleados requeridos
+    int lowWeight;   // peso del no cumplimiento de la cobertura
+    int highWeight;   // peso del sobre cumplimiento de la cobertura
+};
 
 /**
   * La instancia de estructura representa una instancia de un problema de programación y contiene información sobre
@@ -137,7 +182,23 @@ struct SectionCover;
   * "Cubierta de Sección". Tiene una longitud de "lenSectionCover" y contiene información sobre la cobertura de
   * diferentes secciones o áreas dentro de la instancia.
   */
-struct Instance;
+struct Instance
+{
+    int days;
+    int lenShifts;
+    vector<shift> shifts;
+    int lenStaff;
+    vector<empleyee> staff;
+    int lenDaysOff;
+    vector<daysOff> daysOffData;
+    int lenShiftRequests;
+    vector<ShiftRequest> shiftRequests;
+    int lenShiftOffRequests;
+    vector<ShiftOffRequest> shiftOffRequests;
+    int lenSectionCover;
+    vector<SectionCover> sectionCover;
+};
+
 
 /**
   * El código define una estructura Solución en C++ que representa una solución a un problema de programación, con
@@ -158,7 +219,22 @@ struct Instance;
   *
   * @return La función `evaluar_movimiento` devuelve el costo total del movimiento.
   */
-struct Solution;
+struct Solution
+{
+    Instance* inst;  // Puntero a una instancia
+    vector<int> trabajoHoy;  // 0: no trabaja, 1: trabaja
+    vector<int> turnoDiaAnterior;  // id del turno que trabajó el día anterior
+    vector<int> turnosConsecutivos;  // cantidad de turnos consecutivos que lleva trabajando, se reinicia a 0 cuando no trabaja
+    vector<int> diasLibres;  // cantidad de días libres que lleva, se reinicia a 0 cuando trabaja
+    vector<int> finesDeSemana;  // cantidad de fines de semana que lleva trabajando, no se reinicia
+    vector<int> minutosTrabajados;  // minutos trabajados por empleado
+    vector<int> srequestsCumplidas;  // 0: no cumplido, 1: cumplido
+    vector<int> soffrequestsCumplidas;  // 0: no cumplido, 1: cumplido
+    vector<vector<int>> tIdStaff;  // cantidad de turnos por empleado
+    vector<int> cantAsignados;  // cantidad de empleados asignados en la cobertura, i empleado, j cobertura
+    vector<vector<int>> assignados;  // 0: no asignado, 1: asignado, empleado i a la cobertura j
+    int funcEval;
+};
 
 //! Declaracion de las funciones
 
