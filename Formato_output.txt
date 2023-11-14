@@ -1,0 +1,22 @@
+#Funcion Objetivo
+valor
+
+#calendario Horzinte x dias
+Entidades/Dias | 0 | 1 | 2 | 3 | 4 | 5 | 6 
+A              | E | D | L | - | - | D | L
+B              | D | - | - | E | D | L | -
+C              | - | E | D | D | - | E | D 
+D              | L | L | L | L | L | - | L 
+
+#Penalizaciones por Entidade
+A, 0
+B, 3
+C, 0
+D, 0
+
+#Tabla de cobertura de turnos
+Turnos/Dias | 0   | 1   | 2   | 3   | 4   | 5   | 6   |
+E           | 1/1 | 1/1 | 0/0 | 1/1 | 0/2 | 1/1 | 1/1 |
+D           | 1/1 | 1/1 | 0/0 | 1/1 | 0/2 | 1/1 | 1/1 |
+L           | 1/1 | 1/1 | 0/0 | 1/1 | 0/2 | 1/1 | 1/1 |
+Costo Total |  0  |  0  |  0  |  0  | 200 |  0  |  0  |

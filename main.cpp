@@ -12,7 +12,7 @@
 
 using namespace std;
 
-int main(int argc, char const *argv[])
+int main()
 {
   string path = "Instancias/Instance1.txt";
   Instance inst = Instant_Reader(path);

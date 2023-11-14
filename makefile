@@ -1,17 +1,28 @@
-CC = g++
-CFLAGS = -Wall -Wextra -g
+# Variables para especificar los nombres de los archivos
+PROGRAMA = SSP
+ARCHIVO_CPP = main.cpp
+OBJETOS = $(ARCHIVO_CPP:.cpp=.o) File_RW.o 
 
-all: main
+# Opciones de compilación
+CXX = g++
+CXXFLAGS = -std=c++11 -Wall -Wextra
 
-main: main.o File_RW.o
-	$(CC) $(CFLAGS) main.o File_RW.o -o main
+# Regla por defecto: compilar y ejecutar el programa
+all: $(PROGRAMA)
+	@./$(PROGRAMA)
 
-main.o: main.cpp
-	$(CC) $(CFLAGS) -c main.cpp -o main.o
+# Regla para compilar el programa
+$(PROGRAMA): $(OBJETOS)
+	@$(CXX) -o $(PROGRAMA) $(OBJETOS)
 
-File_RW.o: File_RW.cpp
-	$(CC) $(CFLAGS) -c File_RW.cpp -o File_RW.o
+# Regla para compilar archivos fuente a archivos objeto
+%.o: %.cpp
+	@$(CXX) $(CXXFLAGS) -c $< -o $@
 
+# Rutina make
+make: all
 
+# Rutina make clean
 clean:
-	rm -f *.o main
+	@rm -f $(OBJETOS) $(PROGRAMA)
+

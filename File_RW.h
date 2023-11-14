@@ -10,7 +10,7 @@
 
 //! Declaracion de los struct
 
-
+using namespace std;
 /**
  * La estructura "turno" representa un turno con un ID, duración y una lista de turnos que no se pueden
  * asignado al mismo tiempo.
