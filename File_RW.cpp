@@ -143,7 +143,7 @@ Instance Instant_Reader(const string& path){
           inst.shifts.push_back(shifAux);
         }
         //print_shifts(inst);
-        
+        inst.lenShifts = inst.shifts.size();
       }
       else if (linea == "SECTION_STAFF")
       {
@@ -207,6 +207,7 @@ Instance Instant_Reader(const string& path){
           inst.staff.push_back(empleAux);
         }
         //print_staff(inst);
+        inst.lenStaff = inst.staff.size();
       }
       else if (linea == "SECTION_DAYS_OFF" )
       {

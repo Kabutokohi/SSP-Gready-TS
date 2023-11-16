@@ -1,7 +1,7 @@
 # Variables para especificar los nombres de los archivos
 PROGRAMA = SSP
-ARCHIVO_CPP = main.cpp
-OBJETOS = $(ARCHIVO_CPP:.cpp=.o) File_RW.o 
+ARCHIVO_CPP = main.cpp File_RW.cpp Gready.cpp
+OBJETOS = $(ARCHIVO_CPP:.cpp=.o)
 
 # Opciones de compilación
 CXX = g++
